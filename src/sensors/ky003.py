@@ -16,7 +16,7 @@ class KY003(SensorInterface):
     def get_reading(self) -> float:
         return self.__rev_per_sec
     
-    def __on_event(self):
+    def __on_event(self, _):
         new_time_stamp = self.__get_time()
         delta = new_time_stamp - self.__old_time_stamp
         self.__rev_per_sec = 1.0 / delta
