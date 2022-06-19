@@ -24,7 +24,7 @@ def main():
 
     c = Controller()
     
-    c.set_log_delay(1) # in sec
+    c.set_log_delay(0.003) # in sec
     c.enable_debug()
     c.enable_phone_broadcast()
 
@@ -33,8 +33,6 @@ def main():
     c.add_sensor(ACS758IP(sensor_name='Battery Current (A2 0x48)', address=0x48, mode=2, current_offset=-3.5))
     c.add_sensor(ACS758IP(sensor_name='Line Current (A3, 0x48)', address=0x48, mode=3, current_offset=-3.5))
     c.add_sensor(KY003(sensor_name='KY003 Rev per sec'))
-
-
 
     c.run()
 

@@ -3,7 +3,7 @@ import datetime
 
 class CSVLogger:
 
-    def __init__(self, file_name='../pithesis_log.csv'):
+    def __init__(self, file_name='/home/pi/pithesis_log.csv'):
         self.__file_name = file_name
 
     def write_to_csv(self, data):
