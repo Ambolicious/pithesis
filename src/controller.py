@@ -47,7 +47,8 @@ class Controller:
         if self.__broadcaster:
             self.__broadcaster.broadcast(data_list)
     
-    def enable_phone_broadcast(self):
+    def enable_phone_broadcast(self, broadcast_frequency=10):
+        self.__broadcast_freq = broadcast_frequency
         if self.__broadcaster is None:
             self.__broadcaster = PhoneBroadcast()
     

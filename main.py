@@ -26,7 +26,7 @@ def main():
     
     c.set_log_delay(0.003) # in sec
     c.enable_debug()
-    c.enable_phone_broadcast()
+    c.enable_phone_broadcast(broadcast_frequency=10)
 
     c.add_sensor(LM35Temp_ADS1015(sensor_name='LM35 Temp (A0 0x49)', address=0x49, mode=0, lsb=2.0e-3))
     c.add_sensor(ADS1115DiffVoltMeter(sensor_name='Battery Voltage (A0-A1, 0x48)', address=0x48, mode=0, multiplier=15.28))
