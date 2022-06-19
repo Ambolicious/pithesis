@@ -38,7 +38,8 @@ class PhoneBroadcast:
             except Exception as ee:
                 pass
 
-    def broadcast(self, data):
-        self.sendData(data)
+    def broadcast(self, data:list):
+        str_data = ','.join(str(x) for x in data) + '\n'
+        self.sendData(str_data)
             
 
