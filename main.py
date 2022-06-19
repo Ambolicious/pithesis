@@ -23,6 +23,9 @@ from src.sensors.ads1115 import ADS1015VoltMeter
 def main():
 
     c = Controller()
+    
+    c.set_log_delay(1) # in sec
+    c.enable_debug()
     c.enable_phone_broadcast()
 
     c.add_sensor(LM35Temp_ADS1015(sensor_name='LM35 Temp (A0 0x49)', address=0x49, mode=0, lsb=2.0e-3))

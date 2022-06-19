@@ -11,23 +11,26 @@ class Controller:
         self.__sensors = []
         self.__broadcast_freq = 10
         self.__log_count = 0
+        self.__enable_debug = False
+        self.__log_delay = 0
         
     def run(self):
         while True:
-            self.__log_count += 1
             data_list = []
             for sensor in self.__sensors:
                 reading = None
                 try:
                     reading = sensor.get_reading()
-                    sensor.print_log_format(reading)
+                    if self.__enable_debug:
+                        sensor.print_log_format(reading)
                 except Exception as e:
                     reading = sensor.get_error_log(e)
-                    print(reading)
+                    if self.__enable_debug:
+                        print(reading)
                 data_list.append(reading)
             self.__log_reading(data_list)
             self.__broadcast_result(data_list)
-            sleep(1)
+            sleep(self.__log_delay)
             print()
         
     def add_sensor(self, sensor:SensorInterface):
@@ -37,12 +40,19 @@ class Controller:
         self.__logger.write_to_csv(data_list)
     
     def __broadcast_result(self, data_list:list):
-        if self.__log_count > self.__broadcast_freq:
+        self.__log_count += 1
+        if self.__log_count < self.__broadcast_freq:
             return
         self.__log_count = 0
-        if self.__broadcaster is not None:
+        if self.__broadcaster:
             self.__broadcaster.broadcast(data_list)
     
     def enable_phone_broadcast(self):
         if self.__broadcaster is None:
             self.__broadcaster = PhoneBroadcast()
+    
+    def enable_debug(self):
+        self.__enable_debug = True
+    
+    def set_log_delay(self, log_delay):
+        self.__log_delay = log_delay
