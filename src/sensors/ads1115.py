@@ -66,3 +66,9 @@ class ADS1015VoltMeter(ADS1015):
         # print("Raw value {}".format(value))
         return float(value)*self._lsb*self._multiplier + self._offset
         
+
+class ADS1015DiffVoltMeter(ADS1015):
+    
+    def get_reading(self)->float:
+        value = self._adc.read_adc_difference(self._mode, self._gain)
+        return float(value)*self._lsb*self._multiplier + self._offset
