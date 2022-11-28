@@ -13,9 +13,4 @@ class ACS758IP(ADS1015VoltMeter):
         #return (super().get_reading())
         
 
-# for experiment
-        #def get_reading(self)->float:
-            #gain = 2.0/3.0
-            #value = self._adc.read_adc_difference(self._mode, gain)
-            #return value
-            #return float(value)*self._lsb*self._multiplier + self._offset
+
