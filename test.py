@@ -21,6 +21,54 @@ from src.sensors.ads1115 import ADS1015DiffVoltMeter
 #  - 2 = Channel 2
 #  - 3 = Channel 3
 
+
+class SinlgeEndedExp(ADS1015VoltMeter):
+
+    def get_reading(self)->float:
+        # Choose a gain of 1 for reading voltages from 0 to 4.09V.
+        # Or pick a different gain to change the range of voltages that are read:
+        #  - 2/3 = +/-6.144V
+        #  -   1 = +/-4.096V
+        #  -   2 = +/-2.048V
+        #  -   4 = +/-1.024V
+        #  -   8 = +/-0.512V
+        #  -  16 = +/-0.256V
+        # See table 3 in the ADS1015/ADS1115 datasheet for more info on gain.
+
+        gain = 2/3
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+        gain = 2/3
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+        gain = 1
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+        gain = 2
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+        gain = 4
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+        gain = 8
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+        gain = 16
+        value = self._adc.read_adc_difference(self._mode, gain)
+        print(f'gain:{gain}, {value}')
+
+
+        value = self._adc.read_adc_difference(self._mode, self._gain)
+        return float(value)*self._lsb*self._multiplier + self._offset
+
+
+
 def main():
 
     c = Controller()
@@ -48,6 +96,7 @@ def main():
     
     
     c.add_sensor(ADS1015DiffVoltMeter(sensor_name='Battery Voltage (A0-A1, 0x48)', address=0x48, mode=0, multiplier=-32.588, offset=49.848))
+
     
     c.add_sensor(ADS1015VoltMeter(sensor_name='Battery Voltage (A0, 0x48)', address=0x48, mode=0, multiplier=1.0))
     c.add_sensor(ADS1015VoltMeter(sensor_name='Battery Voltage (A1, 0x48)', address=0x48, mode=1, multiplier=1.0))
